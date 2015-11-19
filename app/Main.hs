@@ -1,6 +1,7 @@
 module Main where
 
-import Lib
+import Mandelbrot
+import Data.Complex (Complex((:+)))
 
 main :: IO ()
-main = someFunc
+main = print $ show $ mandelbrot 10 (0 :+ 0)
