@@ -11,7 +11,7 @@ mag2 :: RealFloat a => Complex a -> a
 mag2 z = (realPart z)**2 + (imagPart z)**2
 
 -- For given point and maxIterations returns iteration number when diverged
-mandelbrot :: forall a. (RealFloat a, Show a) => Int -> Complex a -> Int
+mandelbrot :: forall a. RealFloat a => Int -> Complex a -> Int
 mandelbrot maxIter c = mandelbrot_ 0 0
     where
         mandelbrot_ :: Int -> Complex a -> Int
