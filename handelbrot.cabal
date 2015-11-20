@@ -26,6 +26,8 @@ executable handelbrot-exe
   build-depends:       base
                      , handelbrot
                      , sdl2
+                     , array
+                     , random
   default-language:    Haskell2010
 
 test-suite handelbrot-test
