@@ -1,4 +1,4 @@
-{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE ScopedTypeVariables, BangPatterns #-}
 
 module Mandelbrot
     ( mandelbrot
@@ -8,14 +8,18 @@ import Data.Complex
 import Debug.Trace
 
 mag2 :: RealFloat a => Complex a -> a
-mag2 z = (realPart z)**2 + (imagPart z)**2
+mag2 z = (realPart z)^2 + (imagPart z)^2
+{-# INLINE mag2 #-}
 
 -- For given point and maxIterations returns iteration number when diverged
 mandelbrot :: forall a. RealFloat a => Int -> Complex a -> Int
 mandelbrot maxIter c = mandelbrot_ 0 0
     where
         mandelbrot_ :: Int -> Complex a -> Int
-        mandelbrot_ iter z0 =
+        mandelbrot_ !iter !z0 =
             if iter >= maxIter || (mag2 z0) > 4
             then iter
             else mandelbrot_ (iter+1) (z0*z0 + c)
+        {-# INLINE mandelbrot_ #-}
+
+{-# SPECIALIZE mandelbrot :: Int -> Complex Double -> Int #-}
